@@ -15,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -36,7 +37,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'thumb' => $request->thumb,
+            'name' => $request->name,
+            'type' => $request->type,
+            'weight' => $request->weight,
+            'description' => $request->description
+        ];
+        Product::create($data);
+        return to_route('admin.products.index');
     }
 
     /**
@@ -47,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -58,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -70,7 +79,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = [
+            'thumb' => $request->thumb,
+            'name' => $request->name,
+            'type' => $request->type,
+            'weight' => $request->weight,
+            'description' => $request->description
+        ];
+        $product->update($data);
+        return to_route('admin.products.index');
     }
 
     /**
@@ -81,6 +98,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+
+        $product->delete();
+        return to_route('admin.products.index');
     }
 }
