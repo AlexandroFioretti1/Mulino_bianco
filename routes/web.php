@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Guests\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'index'])->name('home');
 
 
-Route::get('/products', function () {
-    return view('products');
-});
+Route::get('/products', [PageController::class, 'products'])->name('products');
 
 
 Route::resource('/admin/products', ProductController::class)->names('admin.products');
